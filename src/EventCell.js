@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import cn from 'classnames';
-import { contrast } from 'contrast';
+import contrast  from 'contrast';
 import { isHexColor } from 'ishex';
 import dates from './utils/dates';
 import { accessor, elementType } from './utils/propTypes';
@@ -38,7 +38,7 @@ class EventCell extends React.Component {
       , eventComponent: Event
       , eventWrapperComponent: EventWrapper
       , ...props } = this.props;
-s
+
     let title = get(event, titleAccessor)
       , end = get(event, endAccessor)
       , start = get(event, startAccessor)
