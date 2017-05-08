@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import cn from 'classnames';
+import { contrast } from 'contrast';
+import { isHexColor } from 'ishex';
 import dates from './utils/dates';
 import { accessor, elementType } from './utils/propTypes';
 import { accessor as get } from './utils/accessors';
@@ -36,21 +38,27 @@ class EventCell extends React.Component {
       , eventComponent: Event
       , eventWrapperComponent: EventWrapper
       , ...props } = this.props;
-
+s
     let title = get(event, titleAccessor)
       , end = get(event, endAccessor)
       , start = get(event, startAccessor)
       , isAllDay = get(event, props.allDayAccessor)
       , continuesPrior = dates.lt(start, slotStart, 'day')
       , continuesAfter = dates.gt(end, slotEnd, 'day')
+      , backgroundColor = (event.color && isHexColor(event.color))? event.color : '#3174ad'
+      , color = '#fff';
 
     if (eventPropGetter)
       var { style, className: xClassName } = eventPropGetter(event, start, end, selected);
 
+    if (contrast(backgroundColor) === 'light') {
+      color = '#000';
+    }
+
     return (
       <EventWrapper event={event}>
         <div
-          style={{...props.style, ...style}}
+          style={{...props.style, ...style, backgroundColor, color}}
           className={cn('rbc-event', className, xClassName, {
             'rbc-selected': selected,
             'rbc-event-allday': isAllDay || dates.diff(start, dates.ceil(end, 'day'), 'day') > 1,
