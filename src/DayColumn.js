@@ -3,6 +3,9 @@ import React from 'react';
 import { findDOMNode } from 'react-dom';
 import cn from 'classnames';
 
+import contrast  from 'contrast';
+import { isHexColor } from 'ishex';
+
 import Selection, { getBoundsForNode, isEvent } from './Selection';
 import dates from './utils/dates';
 import { isSelected } from './utils/selection';
@@ -154,6 +157,9 @@ class DaySlot extends React.Component {
       let label = localizer.format({ start, end }, eventTimeRangeFormat, culture)
       let _isSelected = isSelected(event, selected)
 
+      let backgroundColor = (event.color && isHexColor(event.color))? event.color : '#3174ad'
+      let color = '#fff'
+
       if (eventPropGetter)
         var { style: xStyle, className } = eventPropGetter(event, start, end, _isSelected)
 
@@ -167,7 +173,9 @@ class DaySlot extends React.Component {
               top: `${top}%`,
               height: `${height}%`,
               [isRtl ? 'right' : 'left']: `${Math.max(0, xOffset)}%`,
-              width: `${width}%`
+              width: `${width}%`,
+              backgroundColor,
+              color
             }}
             title={label + ': ' + title }
             onClick={(e) => this._select(event, e)}
