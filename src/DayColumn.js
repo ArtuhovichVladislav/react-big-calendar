@@ -4,7 +4,6 @@ import { findDOMNode } from 'react-dom';
 import cn from 'classnames';
 
 import contrast  from 'contrast';
-import { isHexColor } from 'ishex';
 
 import Selection, { getBoundsForNode, isEvent } from './Selection';
 import dates from './utils/dates';
@@ -157,7 +156,7 @@ class DaySlot extends React.Component {
       let label = localizer.format({ start, end }, eventTimeRangeFormat, culture)
       let _isSelected = isSelected(event, selected)
 
-      let backgroundColor = (event.color && isHexColor(event.color))? event.color : '#3174ad'
+      let backgroundColor = event.color ? event.color : '#3174ad'
       let color = '#fff'
 
       if (eventPropGetter)

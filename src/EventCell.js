@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import cn from 'classnames';
 import contrast  from 'contrast';
-import { isHexColor } from 'ishex';
 import dates from './utils/dates';
 import { accessor, elementType } from './utils/propTypes';
 import { accessor as get } from './utils/accessors';
@@ -45,7 +44,7 @@ class EventCell extends React.Component {
       , isAllDay = get(event, props.allDayAccessor)
       , continuesPrior = dates.lt(start, slotStart, 'day')
       , continuesAfter = dates.gt(end, slotEnd, 'day')
-      , backgroundColor = (event.color && isHexColor(event.color))? event.color : '#3174ad'
+      , backgroundColor = event.color ? event.color : '#3174ad'
       , color = '#fff';
 
     if (eventPropGetter)
